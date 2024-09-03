@@ -1,0 +1,16 @@
+/* Estilos globales básicos */
+/* Estilos globales */
+
+
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+}
+
+
+

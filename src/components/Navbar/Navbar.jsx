@@ -1,52 +1,64 @@
-// src/components/Navbar.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css'; // Importa los estilos de la barra de navegación
+'use client'
 
-const Navbar = () => {
-    return (
-        <div className="div-container">
-            <nav className="navbar">
-                <div className="navbar-container">
-                    <Link to="/" className="navbar-logo">
-                        Coosdy
-                    </Link>
-                    <ul className="navbar-menu">
-                        <li className="navbar-item">
-                            <Link to="/" className="navbar-link">
-                                Inicio
-                            </Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/que-somos" className="navbar-link">
-                                Qué Somos
-                            </Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/blogs" className="navbar-link">
-                                Blogs
-                            </Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/contactanos" className="navbar-link">
-                                Contáctanos
-                            </Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/productos" className="navbar-link">
-                                Productos
-                            </Link>
-                        </li>
-                        <li className="navbar-item">
-                            <Link to="/register" className="navbar-link">
-                                Registro
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    );
-};
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
+import './Navbar.css'
 
-export default Navbar;
+export default function ResponsiveMenu() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleMenu = () => setIsOpen(!isOpen)
+
+  const menuItems = [
+    { name: 'Inicio', href: '#' },
+    { name: 'Servicios', href: '#' },
+    { name: 'Acerca de', href: '#' },
+    { name: 'Contacto', href: '#' },
+  ]
+
+  return (
+    <nav className="responsive-menu">
+      <div className="menu-container">
+        <div className="logo">Logo</div>
+        
+        {/* Menú para pantallas grandes */}
+        <ul className="desktop-menu">
+          {menuItems.map((item) => (
+            <li key={item.name}>
+              <a href={item.href} className="menu-item">
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+        
+        {/* Botón de menú para móviles */}
+        <button
+          className="mobile-menu-button"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <X className="icon" /> : <Menu className="icon" />}
+        </button>
+      </div>
+
+      {/* Menú desplegable para móviles */}
+      {isOpen && (
+        <ul className="mobile-menu">
+          {menuItems.map((item) => (
+            <li key={item.name}>
+              <a
+                href={item.href}
+                className="mobile-menu-item"
+                onClick={toggleMenu}
+              >
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </nav>
+  )
+}
